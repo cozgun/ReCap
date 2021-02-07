@@ -6,14 +6,8 @@ using System.Text;
 namespace DataAccess.Abstract
 {
     // Car tablosuyla yapılacak database operasyonlarını burada topluyoruz.
-    public interface ICarDal
+    public interface ICarDal:IEntityRepository<Car>
     {
-        List<Car> GetAll();
-        List<Car> GetById(int Id);
-        void Add(Car car);
-        void Update(Car car);
-        void Delete(Car car);
-
         //GetById, GetAll, Add, Update, Delete 
     }
 }
