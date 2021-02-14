@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,55 +11,24 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarLeaseContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (CarLeaseContext context = new CarLeaseContext())
             {
-                var addedEntry = context.Entry(entity);
-                addedEntry.State = EntityState.Added;
-                context.SaveChanges();
+                var result = from p in context.Cars
+                             join c in context.Brands
+                             on p.BrandId equals c.Id
+                             select new CarDetailDto
+                             {
+                                 CarName = p.Description,
+                                 BrandName = c.Name,
+                                 DailyPrice = p.DailyPrice
+                             };
+                return result.ToList();
             }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (CarLeaseContext context = new CarLeaseContext())
-            {
-                var deletedEntry = context.Entry(entity);
-                deletedEntry.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter = null)
-        {
-            using (CarLeaseContext context = new CarLeaseContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (CarLeaseContext context = new CarLeaseContext())
-            {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (CarLeaseContext context = new CarLeaseContext())
-            {
-                var updatedEntry = context.Entry(entity);
-                updatedEntry.State = EntityState.Modified;
-                context.SaveChanges();
-            }
+            
         }
     }
 }
