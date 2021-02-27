@@ -1,6 +1,7 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -12,22 +13,42 @@ namespace ConsoleUI
             //CarTest();
             //BrandTest();
             //ColorTest();
-            CarManager carManager = new CarManager(new EfCarDal());
-            var result = carManager.GetCarDetails();
-            if (result.Success == true)
-            {
-                foreach (var car in result.Data)
-                {
-                    Console.WriteLine(car.CarName + " / " + car.BrandName);
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+            //CarDetailTest();
+            //CustomerAddTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            rentalManager.Add(new Rental { Id = 5, CarId=1, CustomerId = 2, RentDate = System.DateTime.Now });
+
+
         }
 
-    
+        private static void CustomerAddTest()
+        {
+            Customer cust = new Customer { Id = 5, CompanyName = "Ar Döner" };
+
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(cust);
+            Console.WriteLine("Müşteri eklendi, hayırlı olsun");
+        }
+
+        //private static void CarDetailTest()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
+        //    var result = carManager.GetCarDetails();
+        //    if (result.Success == true)
+        //    {
+        //        foreach (var car in result.Data)
+        //        {
+        //            Console.WriteLine(car.CarName + " / " + car.BrandName);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result.Message);
+        //    }
+        //}
+
+
 
         //private static void ColorTest()
         //{
