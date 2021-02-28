@@ -21,7 +21,6 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-
             var results = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
             if (results.Count > 0)
             {
@@ -29,8 +28,6 @@ namespace Business.Concrete
             }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
-
-
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -42,7 +39,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
 
-        public IDataResult<List<Rental>> GetRentalsByRentalId(int Id)
+        public IDataResult<List<Rental>> GetById(int Id)
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(p => p.Id == Id));
         }
