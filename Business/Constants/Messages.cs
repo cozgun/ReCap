@@ -17,6 +17,8 @@ namespace Business.Constants
         public static string CustomersListed = "Müşteriler listelendi";
         public static string RentalAdded = "Kiralık araç eklendi";
         public static string RentalInvalid = "Bu araç zaten kiralanmış durumda";
-
+        internal static string MaxImageLimitReached = "Yüklenebilecek maksimum görsel adedine ulaşılmış";
+        internal static string CarImageAdded = "Araç görseli eklendi";
+        internal static string CarImagesListed = "Araç görselleri listelendi";
     }
 }
