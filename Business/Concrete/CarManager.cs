@@ -11,6 +11,10 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.BusinessAspects;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 
 namespace Business.Concrete
 {
@@ -22,7 +26,10 @@ namespace Business.Concrete
             _carDal = carsDal;
         }
 
+        //claim
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarsService.Get")] // key, value pair
         public IResult Add(Car car)
         {
 
@@ -32,6 +39,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheAspect] // key, value pair
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 0)
@@ -53,9 +61,22 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == Id));
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetById(int Id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == Id));
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            Add(car);
+            if (car.DailyPrice < 10)
+            {
+                throw new Exception("");
+            }
+            Add(car);
+            return null;
         }
     }
 }
