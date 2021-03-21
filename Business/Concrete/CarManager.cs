@@ -64,7 +64,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetById(int Id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == Id));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.Id== Id));
         }
 
         [TransactionScopeAspect]

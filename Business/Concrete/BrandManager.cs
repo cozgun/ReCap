@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -35,6 +36,18 @@ namespace Business.Concrete
         IResult IBrandService.GetByAll(int Id)
         {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Brand>> GetById(int Id)
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.Id == Id));
+        }
+
+        public IResult Add(Brand brand)
+        {
+                _brandDal.Add(brand);
+                return new SuccessResult(Messages.BrandAdded);
+
         }
     }
 }
