@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             // Dependency chain-- IProductService ProductManager a ihtiyaç duyuyor.  O da EfProductDal a.  
             //IProductService productService = new ProductManager(new EfProductDal());
             var result = _rentalService.GetAll();
@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
         [HttpGet("getrentaldetails")]
         public IActionResult GetRentalDetails_join()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             var result = _rentalService.GetRentalDetails();
             if (result.Success)
             {

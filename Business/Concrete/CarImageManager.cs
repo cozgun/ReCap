@@ -23,19 +23,6 @@ namespace Business.Concrete
             }
         }
 
-        //public IResult Add(IFormFile file, CarImage carImage)
-        //{
-        //    IResult result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId));
-        //    if (result != null)
-        //    {
-        //        return result;
-        //    }
-        //    carImage.ImagePath = FileHelper.Add(file);
-        //    carImage.Date = DateTime.Now;
-        //    _carImageDAL.Add(carImage);
-        //    return new SuccessResult();
-        //}
-
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var results = _carImageDal.GetAll(r => r.CarId == carImage.CarId);
