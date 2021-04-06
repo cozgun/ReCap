@@ -35,7 +35,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorName = co.Name,
                                  DailyPrice = c.DailyPrice,
                                  ModelYear= c.ModelYear,
-                                 ImagePath = path.ImagePath
+                                 ImagePath = path.ImagePath,
+                                 Status = !context.Rentals.Any(r => r.CarId == c.Id && (r.ReturnDate == null || r.RentDate > DateTime.Now))
                              };
                 return filter == null
                 ? result.ToList()

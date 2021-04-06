@@ -62,8 +62,20 @@ namespace WebAPI.Controllers
         [HttpGet("getrentaldetails")]
         public IActionResult GetRentalDetails_join()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             var result = _rentalService.GetRentalDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getrentaldetailsbycarid")]
+        public IActionResult GetRentalDetailsByCarId(int id)
+        {
+            //Thread.Sleep(1000);
+            var result = _rentalService.GetRentalDetailsByCarId(id);
             if (result.Success)
             {
                 return Ok(result);

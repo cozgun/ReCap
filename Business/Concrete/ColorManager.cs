@@ -18,6 +18,11 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        public Color GetByAll(int Id)
+        {
+            return _colorDal.Get(c => c.Id == Id);
+        }
+
         public List<Color> GetCarsByColorId(int Id)
         {
             return _colorDal.GetAll(p => p.Id == Id);

@@ -14,24 +14,24 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCustomerDal: EfEntityRepositoryBase<Customer, CarLeaseContext>, ICustomerDal
     {
-        //public List<CustomerDetailDto> GetCustomerDetails()
-        //{
-        //    using (CarLeaseContext context = new CarLeaseContext())
-        //    {
-        //        var result = from p in context.Customers
-        //                     join c in context.Users
-        //                     on p.UserId equals c.Id
-        //                     select new CustomerDetailDto
-        //                     {
-        //                         CompanyName = p.CompanyName,
-        //                         FirstName = c.FirstName,
-        //                         LastName = c.LastName,
-        //                         Email = c.Email,
-        //                         Password = c.Password,
-        //                     };    
-        //            return result.ToList();
-        //    }
-        // }
+        public List<CustomerDetailDto> GetCustomerDetail(Expression<Func<Customer, bool>> filter = null)
+        {
+            using (CarLeaseContext context = new CarLeaseContext())
+            {
+                var result = from customer in context.Customers
+                             join u in context.Users
+                             on customer.UserId equals u.Id
+                             select new CustomerDetailDto
+                             {
+                                 CustomerId = customer.Id,
+                                 FirstName = u.FirstName,
+                                 LastName = u.LastName,
+                                 CompanyName = customer.CompanyName,
+                                 Email = u.Email
+                             };
+                return result.ToList();
+            }
+        }
 
     }
 }
