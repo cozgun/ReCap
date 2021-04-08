@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -33,21 +35,33 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        IResult IBrandService.GetByAll(int Id)
+
+
+        public IDataResult<Brand> GetById(int Id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Brand>(_brandDal.Get(p => p.Id == Id));
         }
 
-        public IDataResult<List<Brand>> GetById(int Id)
-        {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.Id == Id));
-        }
-
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
                 _brandDal.Add(brand);
                 return new SuccessResult(Messages.BrandAdded);
 
         }
+
+        public IResult UpdateService(Brand entity)
+        {
+            _brandDal.Update(entity);
+            return new SuccessResult(Messages.ColorUpdated);
+        }
+
+        public IResult DeleteService(Brand entity)
+        {
+            _brandDal.Delete(entity);
+            return new SuccessResult(Messages.ColorDeleted);
+        }
+
+
     }
 }

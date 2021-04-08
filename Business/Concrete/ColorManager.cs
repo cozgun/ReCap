@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.Results;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -33,17 +35,29 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public IDataResult<List<Color>> GetById(int Id)
+        public IDataResult<Color> GetById(int Id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Color>(_colorDal.Get(p => p.Id == Id));
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
 
+        public IResult UpdateService(Color entity)
+        {
+            _colorDal.Update(entity);
+            return new SuccessResult(Messages.ColorUpdated);
+        }
+
+        public IResult DeleteService(Color entity)
+        {
+            _colorDal.Delete(entity);
+            return new SuccessResult(Messages.ColorDeleted);
+        }
 
     }
 }
