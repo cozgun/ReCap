@@ -11,7 +11,7 @@ using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
-    public class ColorManager: IColorService
+    public class ColorManager : IColorService
     {
         IColorDal _colorDal;
 

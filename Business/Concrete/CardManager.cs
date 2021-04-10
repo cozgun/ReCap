@@ -45,7 +45,7 @@ namespace Business.Concrete
 
         public IResult IsCardExist(Card card)
         {
-            var result = _cardDal.Get(c => c.NameOnTheCard == card.NameOnTheCard && c.CardNumber == card.CardNumber && c.CardCvv == card.CardCvv);
+            var result = _cardDal.GetAll(c => c.NameOnTheCard == card.NameOnTheCard && c.CardNumber == card.CardNumber && c.CardCvv == card.CardCvv);
             if (result == null)
             {
                 return new ErrorResult();

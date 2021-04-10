@@ -45,8 +45,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-                _brandDal.Add(brand);
-                return new SuccessResult(Messages.BrandAdded);
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
 
         }
 

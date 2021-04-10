@@ -67,10 +67,21 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getcustomerdetailbyid")]
-        public IActionResult GetCustomerDetailById(int customerId)
+        [HttpGet("getcustomerdetailbyuserid")]
+        public IActionResult GetCustomerDetailByUserId(int userId)
         {
-            var result = _customerService.GetCustomerDetailById(customerId);
+            var result = _customerService.GetCustomerDetailByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("Update")]
+        public IActionResult Update(Customer customer)
+        {
+            var result = _customerService.Update(customer);
             if (result.Success)
             {
                 return Ok(result);

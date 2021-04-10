@@ -42,5 +42,6 @@ namespace Business.Constants
         public static string ColorUpdated = "Renk güncellendi";
         public static string ColorDeleted = "Renk silindi";
 
+        public static string PasswordHasBeenChanged = "Şifre değiştirildi";
     }
 }

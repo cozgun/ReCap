@@ -22,15 +22,15 @@ namespace DataAccess.Concrete.InMemory
             new Car { BrandId = 4, ColorId = 4, DailyPrice = 200, Id = 5, ModelYear = 2015, Description = "Limo" }
             };
         }
-        
+
         public void Add(Car car)
         {
- 
+
         }
 
         public void Delete(Car car)
         {
-            Car carToDelete = _cars.SingleOrDefault(c=> c.Id == car.Id);
+            Car carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
             _cars.Remove(carToDelete);
 
         }
