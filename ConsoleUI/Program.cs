@@ -16,9 +16,12 @@ namespace ConsoleUI
             //CarDetailTest();
             //CustomerAddTest();
 
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            rentalManager.Add(new Rental { Id = 5, CarId=1, CustomerId = 2, RentDate = System.DateTime.Now });
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //rentalManager.Add(new Rental { Id = 5, CarId=1, CustomerId = 2, RentDate = System.DateTime.Now });
 
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //var result = userManager.GetClaims();
+            //Console.WriteLine(userManager.GetClaims("1003");
 
         }
 

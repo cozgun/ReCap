@@ -62,5 +62,53 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getclaims")]
+        public IActionResult GetClaims(int userId)
+        {
+            var result = _userService.GetClaimsNew(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        //[HttpGet("isadmin")]
+        //public IActionResult IsAdmin(int userId)
+        //{
+        //    var result = _userService.IsAdmin(userId);
+        //    if (result = true)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+
+        //}
+
+
+        [HttpGet("GetAllClaims")]
+        public IActionResult GetAllClaims()
+        {
+            var result = _userService.GetAllClaims();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        //[HttpGet("claims")]
+        //public IActionResult GetClaims(int id)
+        //{
+        //    var result = _userService.GetClaims(new User { Id = id });
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+        //}
+
     }
 }

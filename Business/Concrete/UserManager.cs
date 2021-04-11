@@ -6,6 +6,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -47,9 +48,32 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
         }
 
-        public List<OperationClaim> GetClaims(User user)
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return _userDal.GetClaims(user);
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
+        public IDataResult<List<UserClaimsDto>> GetClaimsNew(int userId)
+        {
+            return new SuccessDataResult<List<UserClaimsDto>>(_userDal.GetClaimsNew(userId));
+        }
+
+        public IDataResult<List<OperationClaim>> GetAllClaims()
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetAllClaims());
+        }
+
+        public IResult IsAdmin(int userId)
+        {
+            if (_userDal.IsAdmin(userId))
+            {
+                return new SuccessResult();
+            }
+            else
+            {
+                return new ErrorResult();
+            }
+            
         }
 
         public IDataResult<List<User>> GetDetailsByEmail(string email)
